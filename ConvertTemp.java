@@ -4,18 +4,18 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.*;
 
-public class RollDice implements ActionListener{
+public class ConvertTemp implements ActionListener{
 
 	JPanel panel;
 	JButton button;
 	JLabel label;
 	JTextField text;
 
-	public RollDice(){
+	public ConvertTemp(){
 
 		panel = new JPanel();
 		button = new JButton("Roll");
-		label = new JLabel("Enter number of sides on die:");
+		label = new JLabel("Enter Temp to Convert:");
 		text = new JTextField(10);
 
 		button.addActionListener(this);
