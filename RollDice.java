@@ -10,6 +10,7 @@ public class RollDice implements ActionListener{
 	JButton button;
 	JLabel label;
 	JTextField text;
+	JLabel label2;
 
 	public RollDice(){
 
@@ -17,12 +18,14 @@ public class RollDice implements ActionListener{
 		button = new JButton("Roll");
 		label = new JLabel("Enter number of sides on die:");
 		text = new JTextField(10);
+		label2 = new JLabel();
 
 		button.addActionListener(this);
 
 		panel.add(label);
 		panel.add(text);
 		panel.add(button);
+		panel.add(label2);
 
 	}
 
@@ -43,21 +46,21 @@ public class RollDice implements ActionListener{
 				Random rand = new Random();
 				int n = rand.nextInt(input) + 1;
 
-				System.out.println(n);
+				String newText = "Roll: " + String.format("%d",n);
+				label2.setText(newText);
 
-				//JOptionPane.showMessageDialog(frame, roll);
 			}
 			else{
 
-				System.out.println("invalid input.");
+				label2.setText("Invalid input");
 			}
 		}
 
 		catch(NumberFormatException exception){
 
-			System.out.println("Not an int");
+			label2.setText("Not an int");
 		}
-		
+
 	}
 
 }

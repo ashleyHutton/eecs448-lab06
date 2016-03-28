@@ -1,63 +1,52 @@
 import javax.swing.*;
+import java.awt.event.*;
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.event.*;
-import java.util.*;
 
-public class ConvertTemp implements ActionListener{
-
-	JPanel panel;
-	JButton button;
-	JLabel label;
-	JTextField text;
-
-	public ConvertTemp(){
-
+public class ConvertTemp 
+{
+	private JPanel panel;
+	private JButton button;
+	private JTextField text;
+	private JLabel label;
+	
+	public ConvertTemp()
+	{
 		panel = new JPanel();
-		button = new JButton("Roll");
-		label = new JLabel("Enter Temp to Convert:");
-		text = new JTextField(10);
-
-		button.addActionListener(this);
-
-		panel.add(label);
+		button = new JButton("Convert");
+		text = new JTextField(3);//3 cols, not 20 chars
+		label = new JLabel("Enter a temperature from F to C");
+		
+		//Load the listener
+		button.addActionListener(buttonListener());	
+		
+		//load the panel
 		panel.add(text);
 		panel.add(button);
-
+		panel.add(label);
 	}
-
-	public Component getPanel(){
-
-		return(panel);
-
+	
+	public Component getContent()
+	{
+		return (panel);
 	}
-
-	public void actionPerformed(ActionEvent e){
-
-		try{
-
-			int input = Integer.parseInt(text.getText());
-
-			if (input > 0){
-
-				Random rand = new Random();
-				int n = rand.nextInt(input) + 1;
-
-				System.out.println(n);
-
-				//JOptionPane.showMessageDialog(frame, roll);
+	
+	private ActionListener buttonListener()
+	{
+		ActionListener listener = new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				String input = text.getText();
+				double tempInF = Double.parseDouble(input);//convert String to double
+				double tempInC = (tempInF-32)*(5.0/9.0); //convert F to C
+				String newText = "Temp in C: " + String.format("%.2f",tempInC);//convert double to String and
+											       //only display 2 places past decimal
+				label.setText(newText);
+				System.out.println(newText);
 			}
-			else{
-
-				System.out.println("invalid input.");
-			}
-		}
-
-		catch(NumberFormatException exception){
-
-			System.out.println("Not an int");
-		}
+		};
 		
-	}
-
+		return listener;
+	}	
 }

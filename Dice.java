@@ -10,7 +10,7 @@ public class Dice{
 
 		frame.getContentPane().add(rollDice.getPanel());
 		frame.setSize(500, 300);
-
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 
