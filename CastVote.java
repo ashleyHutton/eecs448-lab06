@@ -3,6 +3,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
 public class CastVote implements ActionListener{
 
@@ -14,13 +15,17 @@ public class CastVote implements ActionListener{
 	JTextField lNameText;
 	JLabel label2;
 
+	JRadioButton cand1Button;
+	JRadioButton cand2Button;
+	JRadioButton cand3Button;
+	JRadioButton cand4Button;
+
+	String cand1 = "Dog";
+	String cand2 = "Cat";
+	String cand3 = "Pig";
+	String cand4 = "Horse";
+
 	public CastVote(){
-
-		String cand1 = "Dog";
-		String cand2 = "Cat";
-		String cand3 = "Pig";
-		String cand4 = "Horse";
-
 
 		panel = new JPanel();
 		button = new JButton("Vote");
@@ -32,45 +37,29 @@ public class CastVote implements ActionListener{
 
 		button.addActionListener(this);
 
-		JRadioButton cand1Button = new JRadioButton(cand1);
-	    cand1Button.setMnemonic(KeyEvent.VK_C1);
-	    cand1Button.setActionCommand(cand1);
+		cand1Button = new JRadioButton(cand1);
+	   	cand2Button = new JRadioButton(cand2);
+	    cand3Button = new JRadioButton(cand3);
+	    cand4Button = new JRadioButton(cand4);
+
 	    cand1Button.setSelected(true);
-
-	    JRadioButton cand2Button = new JRadioButton(cand2);
-	    cand2Button.setMnemonic(KeyEvent.VK_C2);
-	    cand2Button.setActionCommand(cand2);
-
-	    JRadioButton cand3Button = new JRadioButton(cand3);
-	    cand3Button.setMnemonic(KeyEvent.VK_C3);
-	    cand3Button.setActionCommand(cand3);
-
-	    JRadioButton cand4Button = new JRadioButton(cand4);
-	    cand4Button.setMnemonic(KeyEvent.VK_C4);
-	    cand4Button.setActionCommand(cand4);
 
 	    //Group the radio buttons.
 	    ButtonGroup group = new ButtonGroup();
-	    group.add(birdButton);
-	    group.add(catButton);
-	    group.add(dogButton);
-	    group.add(rabbitButton);
-
-	    //Register a listener for the radio buttons.
-	    birdButton.addActionListener(this);
-	    catButton.addActionListener(this);
-	    dogButton.addActionListener(this);
-	    rabbitButton.addActionListener(this);
+	    group.add(cand1Button);
+	    group.add(cand2Button);
+	    group.add(cand3Button);
+	    group.add(cand4Button);
 
 		panel.add(firstName);
 		panel.add(fNameText);
 		panel.add(lastName);
 		panel.add(lNameText);
 
-		panel.add(birdButton);
-		panel.add(catButton);
-		panel.add(dogButton);
-		panel.add(rabbitButton);
+		panel.add(cand1Button);
+		panel.add(cand2Button);
+		panel.add(cand3Button);
+		panel.add(cand4Button);
 
 		panel.add(button);
 		panel.add(label2);
@@ -84,31 +73,48 @@ public class CastVote implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
-/*
+
+		String fName = fNameText.getText();
+		String lName = lNameText.getText();
+
+		String candidate = "hi";
+
+		if (cand1Button.isSelected()){ candidate = cand1; }
+		if (cand2Button.isSelected()){ candidate = cand2; }
+		if (cand3Button.isSelected()){ candidate = cand3; }
+		if (cand4Button.isSelected()){ candidate = cand4; }
+
+		String fileName = lName + "_" + fName + "_ballot.txt";
+
 		try{
 
-			int input = Integer.parseInt(text.getText());
+			File f = new File(fileName);
 
-			if (input > 0){
+			if (f.createNewFile()){ // file create was successful
 
-				Random rand = new Random();
-				int n = rand.nextInt(input) + 1;
-
-				String newText = "Roll: " + String.format("%d",n);
-				label2.setText(newText);
+				System.out.println(candidate);
+				FileWriter writer = new FileWriter(fileName);
+				writer.write(candidate);
 
 			}
-			else{
+			else { // file with this name already exists
 
-				label2.setText("Invalid input");
+				System.out.println("File already exists. User has already voted.");
+
 			}
 		}
+		catch (Exception exception){
+			exception.printStackTrace();
+		}
 
-		catch(NumberFormatException exception){
-
-			label2.setText("Not an int");
-		}*/
+		return;
 
 	}
 
 }
+
+
+
+
+
+
