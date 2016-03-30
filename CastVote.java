@@ -13,17 +13,17 @@ public class CastVote implements ActionListener{
 	JLabel lastName;
 	JTextField fNameText;
 	JTextField lNameText;
-	JLabel label2;
+	JLabel errorMsg;
 
 	JRadioButton cand1Button;
 	JRadioButton cand2Button;
 	JRadioButton cand3Button;
 	JRadioButton cand4Button;
 
-	String cand1 = "Dog";
-	String cand2 = "Cat";
-	String cand3 = "Pig";
-	String cand4 = "Horse";
+	String cand1 = "My Dog";
+	String cand2 = "My Cat";
+	String cand3 = "My Pig";
+	String cand4 = "My Horse";
 
 	public CastVote(){
 
@@ -33,7 +33,7 @@ public class CastVote implements ActionListener{
 		lastName = new JLabel("Last Name:");
 		fNameText = new JTextField(10);
 		lNameText = new JTextField(10);
-		label2 = new JLabel();
+		errorMsg = new JLabel();
 
 		button.addActionListener(this);
 
@@ -62,8 +62,7 @@ public class CastVote implements ActionListener{
 		panel.add(cand4Button);
 
 		panel.add(button);
-		panel.add(label2);
-
+		panel.add(errorMsg);
 	}
 
 	public Component getPanel(){
@@ -77,7 +76,7 @@ public class CastVote implements ActionListener{
 		String fName = fNameText.getText();
 		String lName = lNameText.getText();
 
-		String candidate = "hi";
+		String candidate = "";
 
 		if (cand1Button.isSelected()){ candidate = cand1; }
 		if (cand2Button.isSelected()){ candidate = cand2; }
@@ -92,14 +91,17 @@ public class CastVote implements ActionListener{
 
 			if (f.createNewFile()){ // file create was successful
 
-				System.out.println(candidate);
+				// System.out.println(candidate);
 				FileWriter writer = new FileWriter(fileName);
 				writer.write(candidate);
+				writer.close();
 
 			}
 			else { // file with this name already exists
 
-				System.out.println("File already exists. User has already voted.");
+
+				//System.out.println("File already exists. User has already voted.");
+				errorMsg.setText("File already exists. User has already voted.");
 
 			}
 		}
